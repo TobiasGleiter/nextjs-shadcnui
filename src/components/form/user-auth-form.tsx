@@ -17,8 +17,6 @@ type FormData = z.infer<typeof userAuthSchema>;
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const {
-    register,
-    handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(userAuthSchema),
