@@ -37,7 +37,7 @@ export default async function MarketingLayout({
                 "font-bold italic",
               )}
             >
-              Try it - all free!
+              Try it - for free!
             </Link>
           </nav>
         </div>
