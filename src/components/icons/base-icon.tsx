@@ -8,7 +8,6 @@ import {
   File,
   FileText,
   HelpCircle,
-  Hexagon,
   Image,
   Laptop,
   Loader2,
@@ -19,6 +18,7 @@ import {
   Plus,
   Settings,
   SunMedium,
+  Target,
   Trash,
   Twitter,
   User,
@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 
 export const Icons = {
-  logo: Hexagon,
+  logo: Target,
   close: X,
   spinner: Loader2,
   chevronLeft: ChevronLeft,
