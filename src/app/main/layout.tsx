@@ -1,25 +1,34 @@
 import { MainNav } from "@/components/navigation/main-nav";
 import { DashboardNav } from "@/components/navigation/sidebar-nav";
 import { SiteFooter } from "@/components/navigation/site-footer";
+import { UserAccountNav } from "@/components/navigation/user-account-nav";
 import { dashboardConfig } from "@/config/dashboard";
+import { getCurrentUser } from "@/lib/auth/session";
+import { notFound } from "next/navigation";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
 }
 
-export default function MainLayout({ children }: AuthLayoutProps) {
+export default async function MainLayout({ children }: AuthLayoutProps) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return notFound();
+  }
   return (
     <div className="flex min-h-screen flex-col space-y-6">
       <header className="sticky top-0 z-40 border-b bg-background">
         <div className="container flex h-16 items-center justify-between py-4">
           <MainNav items={dashboardConfig.mainNav} />
-          {/* <UserAccountNav
-        user={{
-          name: user.name,
-          image: user.image,
-          email: user.email,
-        }}
-      /> */}
+          <UserAccountNav
+            items={dashboardConfig.sidebarNav}
+            user={{
+              name: user.name,
+              image: user.image,
+              email: user.email,
+            }}
+          />
         </div>
       </header>
       <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
