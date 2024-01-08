@@ -33,7 +33,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   });
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false);
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams && searchParams.get("callbackUrl");
+  let callbackUrl = searchParams && searchParams.get("callbackUrl");
+  if (callbackUrl == "/login" || callbackUrl == "/register")
+    callbackUrl = "main/dashboard";
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
@@ -41,7 +43,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         type="button"
         className={cn(buttonVariants({ variant: "outline" }))}
         onClick={() =>
-          handleSignIn("github", `${window.location.origin}/main/dashboard`)
+          handleSignIn("github", `${window.location.origin}/${callbackUrl}`)
         }
         disabled={isGitHubLoading}
       >

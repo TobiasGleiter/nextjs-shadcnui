@@ -1,7 +1,7 @@
 import { MainNav } from "@/components/navigation/main-nav";
 import { DashboardNav } from "@/components/navigation/sidebar-nav";
 import { SiteFooter } from "@/components/navigation/site-footer";
-import { UserAccountNav } from "@/components/navigation/user-account-nav";
+import { UserAccountNav } from "@/components/user/user-account-nav";
 import { dashboardConfig } from "@/config/dashboard";
 import { getCurrentUser } from "@/lib/auth/session";
 import { notFound } from "next/navigation";
@@ -22,7 +22,6 @@ export default async function MainLayout({ children }: AuthLayoutProps) {
         <div className="container flex h-16 items-center justify-between py-4">
           <MainNav items={dashboardConfig.mainNav} />
           <UserAccountNav
-            items={dashboardConfig.sidebarNav}
             user={{
               name: user.name,
               image: user.image,

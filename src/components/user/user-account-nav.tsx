@@ -11,17 +11,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { SidebarNavItem } from "@/types";
+import { UserAvatar } from "./user-avatar";
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
-  items: SidebarNavItem[];
   user: Pick<User, "name" | "image" | "email">;
 }
 
-export function UserAccountNav({ items, user }: UserAccountNavProps) {
+export function UserAccountNav({ user }: UserAccountNavProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>{user.name}</DropdownMenuTrigger>
+      <DropdownMenuTrigger>
+        <UserAvatar
+          user={{ name: user.name || null, image: user.image || null }}
+          className="h-8 w-8"
+        />
+      </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
@@ -34,24 +38,22 @@ export function UserAccountNav({ items, user }: UserAccountNavProps) {
           </div>
         </div>
         <DropdownMenuSeparator />
-        {items.map((item, index) => {
-          return (
-            item.href && (
-              <DropdownMenuItem asChild key={index}>
-                <Link href={item.disabled ? "/" : (item.href as string)}>
-                  {item.title}
-                </Link>
-              </DropdownMenuItem>
-            )
-          );
-        })}
+        <DropdownMenuItem asChild>
+          <Link href={"/main/dashboard"}>Dashboard</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={"/main/billing"}>Billing</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={"/main/settings"}>Settings</Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
           onSelect={(event) => {
             event.preventDefault();
             signOut({
-              callbackUrl: `${window.location.origin}/login`,
+              callbackUrl: `${window.location.origin}/`,
             });
           }}
         >
