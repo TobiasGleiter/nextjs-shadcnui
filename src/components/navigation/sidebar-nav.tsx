@@ -33,7 +33,7 @@ export function DashboardNav({ items }: DashboardNavProps) {
                 )}
               >
                 <Icon className="mr-2 h-4 w-4" />
-                <span>{item.title}</span>
+                <span className="hidden md:flex">{item.title}</span>
               </span>
             </Link>
           )
